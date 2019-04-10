@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css">
+  <link rel="stylesheet" href="./static/lib/css/dc.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+
+
+</head>
+<body class="application">
+  <a href="/AddSkill.html"> <b>Ajouter des compétences</b></a>
+  <form action="/" method="POST" style="margin: 10px">
+      <input type="submit" value="Exécuter" class="btn btn-primary" >
+  </form>
+  
+  <div class="row" style="margin: 10px; text-align: center;" >
+    <input type="button" value="TF" class="btn btn-success" id="first">
+    <input type="button" value="TFIDF" class="btn btn-success" id="second">
+    <input type="button" value="PARETO" class="btn btn-success" id="third">
+    <input type="button" value="CLASSFICATION" class="btn btn-success" id="fourth">
+  </div>
+
+  <div class="container-fluid" style="margin: 15px" id="graph">
+    <div class="row">
+
+      <!-- first part: trades -->
+      <div class="col-sm-4" >
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="chart-wrapper">
+                  <div class="chart-title">
+                    <b> 
+                      Les métiers 
+                    </b>
+                  </div>
+                  <div class="chart-stage">
+                    <div id="job-chart">
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- second part:  -->
+      <div class="col-sm-4">
+        <div class="row">
+            
+            <!-- maps -->
+            <div class="col-sm-12">
+                <div class="chart-wrapper">
+                  <div class="chart-title">
+                    <b>
+                      Carte de France des régions
+                    </b>
+                  </div>
+                  <div class="chart-stage">
+                    <div id="us-chart">
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- number of trade -->
+            <div class="col-sm-6">
+                <div class="chart-wrapper">
+                  <div class="chart-title">
+                    <b>
+                      Nombre total des métiers 
+                    </b>
+                  </div>
+                  <div class="chart-stage">
+                    <div id="number-projects-nd">
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- average salary -->  
+            <div class="col-sm-6">
+                <div class="chart-wrapper">
+                  <div class="chart-title">
+                    <b>
+                      Salaire brut moyen/an. K€ 
+                    </b>
+                  </div>
+                  <div class="chart-stage">
+                    <div id="total-donations-nd"> 
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- third part -->
+      <div class="col-sm-4">
+          <div class="row">
+
+              <!-- year -->
+              <div class="col-sm-12">
+                  <div class="chart-wrapper">
+                    <div class="chart-title">
+                      <b>
+                        Nombre d'offres en fonction de l'année 
+                      </b>
+                    </div>
+                    <div class="chart-stage">
+                      <div id="time-chart">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              
+              <!-- skills -->
+              <div class="col-sm-12">
+                  <div class="chart-wrapper">
+                    <div class="chart-title">
+                      <b>
+                        Compétences
+                      </b>  
+                    </div>
+                    <div class="chart-stage">
+                      <div id="resource-type-row-chart">
+                      </div>
+                    </div>
+                  </div>
+              </div>       
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="margin: 15px" id="radartf">
+    <div class="row">
+      <div class="col-sm-4">
+        <div id="radar-chart1"><b>Savoir</b></div>
+      </div>
+      <div class="col-sm-4">
+          <div id="radar-chart2"><b>Savoir-Etre</b></div>
+      </div>
+      <div class="col-sm-4">
+        <div id="radar-chart3"><b>Savoir-faire</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="margin: 15px" id="radartfidf">
+    <div class="row">
+      <div class="col-sm-4">
+        <div id="radar-chart4"><b>Savoir</b></div>
+      </div>
+      <div class="col-sm-4">
+          <div id="radar-chart5"><b>Savoir-Etre</b></div>
+      </div>
+      <div class="col-sm-4">
+        <div id="radar-chart6"><b>Savoir-faire</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" id="kchart">
+      <div id="kChart" style="height: 700px; width: 100%; overflow: scroll;"></div>
+  </div>
+
+  <div class="container-fluid" style="margin: 15px" id="pareto">
+    <div class="row">
+      <div id="pChart1" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="row">
+      <div id="pChart2" style="height: 370px; width: 100%;"></div>
+    </div>
+    <div class="row">
+      <div id="pChart3" style="height: 370px; width: 100%;"></div>
+    </div>
+  </div>
+
+  <script src="./static/lib/js/jquery-3.3.1.min.js"></script>
+  <script src="./static/lib/js/bootstrap.min.js"></script>
+  <script src="./static/lib/js/crossfilter.js"></script>
+  <script src="./static/lib/js/d3.js"></script>
+  <script src="./static/lib/js/dc.js"></script>
+  <script src="./static/lib/js/queue.js"></script>
+
+
+  <!-- <script src="./static/lib/js/keen.min.js"></script> -->
+ <!-- pareto part js -->
+  <script src='./static/js/canvasjs.min.js' type='text/javascript'></script>
+  <script src='./static/js/ParetoChart.js' type='text/javascript'></script>
+  <!-- radar part js: this js is related the all js-->
+  <script src='./static/js/RadarChart.js' type='text/javascript'></script>
+
+  <!-- kchart js -->
+  <script src='./static/js/kmeans.min.js' type='text/javascript'></script>
+  <script src='./static/js/kChart.js' type='text/javascript'></script>
+  <script src='./static/js/plotly-latest.min.js' type='text/javascript'></script>
+
+  <!-- first graphs js -->
+  <script src='./static/js/graphs1.js' type='text/javascript'></script>
+  
+  <!-- js relate to the radar, pareto -->
+  <script src='./static/js/graphs2.js' type='text/javascript'></script>
+
+  <!-- kchart -->
+  <script src='./static/js/graphs3.js' type='text/javascript'></script>
+  
+  
+  
+  <script src='./static/js/script.js' type='text/javascript'></script>
+   
+
+ <script type="text/javascript">
+    console.log(jQuery.fn.jquery);
+    $(document).ready(function(){
+      $("#first").click(function(){
+        $("#graph, #radartf").show();
+        $("#radartfidf, #kchart, #pareto").hide();
+      });
+    });
+
+    $(document).ready(function(){
+      $("#second").click(function(){
+        $("#graph, #radartfidf").show();
+        $("#radartf, #kchart, #pareto").hide();
+      });
+    });
+    
+    $(document).ready(function(){
+      $("#third").click(function(){
+        $("#graph, #pareto").show();
+        $("#radartf, #kchart, #radartfidf").hide();
+      });
+    });
+    
+    $(document).ready(function(){
+      $("#fourth").click(function(){
+        $("#graph, #kchart").show();
+        $("#radartf, #radartfidf, #pareto").hide();
+      });
+    });
+  </script>
+  
+</body>
+</html>

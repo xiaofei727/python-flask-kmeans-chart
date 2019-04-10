@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter des compétences</title>
+    <link rel="stylesheet" href="./static/lib/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" style="margin: 30px;">
+    <form action="/addSkill" method="POST">
+    Savoir <input type="input" name="savoir" placeholder="savoir" class="form-control"> <br/>
+    Savoir faire<input type="input" name="savoir_faire" placeholder="savoir_faire" class="form-control"> <br/>
+    Savoir être<input type="input" name="savoir_etre" placeholder="savoir_etre" class="form-control"> <br/>
+
+    <input type="submit" value="Ajouter" class="btn btn-primary"> <br/>
+    <a href="/" style="margin: 10px;">Exécuter</a>
+</form>
+</div>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+</body>
+</html>
